@@ -15,7 +15,7 @@ const Form = () => {
 
   return (
     <Paper>
-      <Form
+      <form
         autoComplete="off"
         noValidate
         className={classes.form}
@@ -32,7 +32,7 @@ const Form = () => {
             setPostData({ ...postData, creator: e.target.value });
           }}
         />
-      </Form>
+      </form>
     </Paper>
   );
 };
