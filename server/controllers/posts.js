@@ -1,4 +1,6 @@
-import PostMessage from '../models/postMessage.js'
+import mongoose from 'mongoose';
+import express from 'express';
+import PostMessage from '../models/postMessage.js';
 
 export const getPosts = async (req, res) => {
     try {
@@ -21,4 +23,16 @@ export const createPost = async (req, res) => {
     } catch (error) {
         res.status(409).json({message: error.message});
     }  
+}
+
+export const updatePost = async (req, res) =>{
+    const {id: _id} = req.params;
+    const post = req.body;  //this is the updated post received from the front-end
+
+    if(!mongoose.Types.ObjectId.isValid(_id)){
+        return res.status(404).send("No post with this id")
+    }
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, {...post, _id}, {new: true});
+    res.json(updatedPost);
 }
